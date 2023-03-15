@@ -1,4 +1,5 @@
 import 'package:downloader/provider/Bottom_nav_Provider.dart';
+import 'package:downloader/provider/getStatusesProvider.dart';
 import 'package:downloader/screen/mainActivity.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => Bottom_Navigation_Bar()),
+        ChangeNotifierProvider(create: (_) => GetStatusesProvider()),
       ],
       child: MaterialApp(
         home: mainActivity(),
