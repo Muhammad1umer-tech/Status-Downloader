@@ -52,7 +52,7 @@ class _ImageHomePageState extends State<ImageHomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => imageViewClass()));
+                                    builder: (_) => imageViewClass(data.path)));
                           },
                           child: Container(
                             decoration: BoxDecoration(

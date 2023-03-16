@@ -34,7 +34,6 @@ class GetStatusesProvider extends ChangeNotifier {
       log("Permission Denied");
       return;
     }
-
     if (status.isGranted) {
       //log(direc.path);
       final directory = Directory(AppConstants.whatsapp_path);
