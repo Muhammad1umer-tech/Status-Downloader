@@ -1,4 +1,5 @@
 import 'package:downloader/screen/BottomNaviPages/videos/videoViewPage.dart';
+import 'package:downloader/utilities/getThumbnail.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -48,20 +49,31 @@ class _VideoHomePageState extends State<VideoHomePage> {
                               mainAxisSpacing: 10),
                       children: List.generate(0, (index) {
                         final data = value.getVideos[index];
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => videoViewClass()));
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: FileImage(File(data.path))),
-                            ),
-                          ),
-                        );
+                        return FutureBuilder<String>(
+                            future: getThumbnail(data.path),
+                            builder: (context, snapshot) {
+                              return snapshot.hasData
+                                  ? InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (_) => videoViewClass(
+                                                      videoPath: data.path,
+                                                    )));
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: FileImage(
+                                                  File(snapshot.data))),
+                                        ),
+                                      ),
+                                    )
+                                  : const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                            });
                       }),
                     ),
                   );
